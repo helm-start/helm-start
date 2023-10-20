@@ -24,6 +24,9 @@ jobs:
       run: |
         echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout )" >> $GITHUB_OUTPUT
     - name: print
-      run: echo ${{ env.RELEASE_VERSION }}  | sed 's/-SNAPSHOT//'
+      run: | 
+        echo ${{ env.RELEASE_VERSION }}
+        echo "${{ env.RELEASE_VERSION }}"
+        echo ${{ env.RELEASE_VERSION }}  | sed 's/-SNAPSHOT//'
      
       
