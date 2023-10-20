@@ -25,6 +25,6 @@ jobs:
         echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
     - name: Drop SNAPSHOT suffix
       run: |
-        echo "${{ env.RELEASE_VERSION }}" | sed "s/-SNAPSHOT//"
+        echo "RELEASE_VERSION=$(${{ env.RELEASE_VERSION }} | sed "s/-SNAPSHOT//")"
      
       
