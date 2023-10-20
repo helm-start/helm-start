@@ -6,13 +6,13 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: PROD Build
+name: psalg-dev-patch-1 Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "psalg-dev-patch-1" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "psalg-dev-patch-1" ]
 
 
 jobs:
