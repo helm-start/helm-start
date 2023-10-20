@@ -19,14 +19,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set Release version env variable
-      run: |
-        echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout )" >> $GITHUB_OUTPUT
+    - uses: actions/checkout@v3 
+    - id: get-version
+      uses: jactions/maven-version@v1
+      name: Set Release version env variable
     - name: print
       run: | 
-        echo ${{ env.RELEASE_VERSION }}
-        echo "${{ env.RELEASE_VERSION }}"
-        echo ${{ env.RELEASE_VERSION }}  | sed 's/-SNAPSHOT//'
+        echo ${{ steps.get-version.outputs.version }}
+        echo "${{ steps.get-version.outputs.version }}"
+        echo ${{ steps.get-version.outputs.version }}  | sed 's/-SNAPSHOT//'
      
       
