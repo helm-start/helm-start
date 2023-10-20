@@ -22,10 +22,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Set Release version env variable
       run: |
-        echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec | sed "s/-SNAPSHOT//" )
-      id: project
-    - name: Drop SNAPSHOT suffix
-      run: |
-        echo ${{ steps.project.outputs.version }}
+        echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//' )" >> $GITHUB_OUTPUT
+    - name: print
+      run: echo "${{ env.RELEASE_VERSION }}"
      
       
