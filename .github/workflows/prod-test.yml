@@ -20,10 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: get-pom-version
-      id: pom-version
-      uses: CptMokoena/maven-get-version-action@master
-    
-    - name: Print Maven POM project version
-      run: echo "${{ steps.pom-version.outputs.version }}" | sed "s/-SNAPSHOT//"
+    - name: Set Release version env variable
+      run: |
+        echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+    - name: Drop SNAPSHOT suffix
+      run: |
+        echo "${{ env.RELEASE_VERSION }}" | sed "s/-SNAPSHOT//"
+     
       
