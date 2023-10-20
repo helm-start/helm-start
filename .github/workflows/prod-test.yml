@@ -20,13 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3 
-    - id: get-version
-      uses: jactions/maven-version@v1
+    - id: version
+      run: |
+        echo "resolved-version=$(mvn --quiet --non-recursive exec:exec -Dexec.executable=echo -Dexec.args='${project.version}' | sed 's/-SNAPSHOT//')" >> "${GITHUB_OUTPUT}"
       name: Set Release version env variable
     - name: print
       run: | 
-        echo ${{ steps.get-version.outputs.version }}
-        echo "${{ steps.get-version.outputs.version }}"
-        echo ${{ steps.get-version.outputs.version }}  | sed 's/-SNAPSHOT//'
+        echo ${{ steps.version.outputs.resolved-version }}
+        echo "${{ steps.version.outputs.resolved-version }}"
+        echo ${{ steps.version.outputs.resolved-version }}  | sed 's/-SNAPSHOT//'
      
       
