@@ -19,8 +19,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set Release version env variable
-        run: |
-          echo "RELEASE_VERSION=($(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) | sed "s/-SNAPSHOT//")" >> $GITHUB_ENV
+    - uses: actions/checkout@v3
+    - name: get-pom-version
+      id: pom-version
+      uses: PERES-Richard/maven-get-version-action@v3.0.0
+    
+    - name: Print Maven POM project version
+      run: echo "${{ steps.pom-version.outputs.version }}" | sed "s/-SNAPSHOT//"
       
